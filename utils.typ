@@ -1,3 +1,9 @@
+#let cn-font-serif = "Source Han Serif SC"
+#let en-font-serif = "New Computer Modern"
+#let cn-font-sans = "Source Han Sans SC"
+#let en-font-sans = "New Computer Modern Sans"
+// #let cn-font-sans ="Heiti SC"
+
 #let span = math.op("span")
 #let Var = math.op("Var")
 #let Cov = math.op("Cov")

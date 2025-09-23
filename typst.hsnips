@@ -293,11 +293,11 @@ dot
 endsnippet
 
 snippet +- "pm" iAm
-\pm 
+plus.minus
 endsnippet
 
 snippet -+ "mp" iAm
-\mp 
+minus.plus
 endsnippet
 
 snippet odot "odot" iAm
@@ -350,7 +350,7 @@ snippet `\\ln ?ot` "in" iAm
 endsnippet
 
 snippet sse "subseteq" iAm
-\subseteq 
+subset.eq
 endsnippet
 
 snippet sqs "sqsubset" iAm
@@ -767,7 +767,7 @@ snippet `(mu|alpha|sigma|rho|beta|gamma|delta|zeta|eta|varepsilon|epsilon|theta|
 endsnippet
 
 snippet cap "intersection" iAm 
-inter 
+inter
 endsnippet
 
 snippet cup "intersection" iAm 
@@ -776,4 +776,16 @@ endsnippet
 
 snippet rt "root function" iAm
 root($1,$2)$0
+endsnippet
+
+snippet ali "alignment" iAm
+&
+endsnippet
+
+snippet notin "not in" iAm
+in.not
+endsnippet
+
+snippet chu "over" iAm
+\/
 endsnippet

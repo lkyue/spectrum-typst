@@ -1,6 +1,6 @@
 #import "template.typ": *
-#show: note.with(course: "线性代数", watermark: str(math.copyright) + "syqwq")
-
+#show: note.with(course: "线性代数")
+#set text(lang:"zh")
 = 向量空间
 
 
@@ -15,7 +15,7 @@
 
 你应该已经熟悉了实数集合 $RR$  的基本性质.发明复数，是为了让我们可以取负数的平方 根.我们的想法是，假设 $-1$  有平方根，将其用 $i$  表示，并且它遵守通常的算术规则. 正式的定义如下.
 
-#definition([复数(complex number) $CC$])[
+#definition(title:[复数(complex number) $CC$])[
   - 一个复数是一个有序对 $(a,b)$，其中 $a,b in RR$，不过我们会把这个写成 $a+b i$
   - 全体复数集合用 $CC$ 表示：
   $
@@ -29,20 +29,20 @@
   其中 $a,b,c,d in RR$.
 ]
 
-#lemma([$LL$])[
+#lemma(title:[$LL$])[
   This is Lemma env.
 ]
 
-#proposition([$PP$])[
+#proposition(title:[$PP$])[
   This is Proposition env.
 ]
 
-#problem([PP])[
+#problem(title:$PP r o b l e m$ )[
   证明： $sqrt(2) in.not QQ$.
 ]
 
 
-#theorem([length of $z$ ])[
+#theorem(title:[length of $z$ ])[
   Suppose $z in CC$, then we have:
   $
     z overline(z) = overline(z)z=abs(z)^(2)
@@ -50,7 +50,7 @@
 ]
 
 
-#example([复数的算数运算])[
+#example(title:[复数的算数运算])[
   运用 1 中的性质，可以算出 $(2+3i)(4+5i)$ 的值：
   $
     (2+3i)(4+5i) & =2 dot (4+5i)+(3i) dot (4+5i) \
@@ -59,7 +59,7 @@
 ]
 == 向量空间的定义
 
-#definition([复数(complex number) $CC$])[
+#definition(title:[复数(complex number) $CC$])[
   - 一个复数是一个有序对 $(a,b)$，其中 $a,b in RR$，不过我们会把这个写成 $a+b i$
   - 全体复数集合用 $CC$ 表示：
   $
@@ -68,13 +68,13 @@
 ]
 
 == 子空间
-#definition([子空间(subspace)])[
+#definition(title:[子空间(subspace)])[
   设 $V$ 是一个向量空间.如果 $W subset.eq V$ 并且 $W$ 本身也是一个向量空间(使用 $V$ 中的加法和标量乘法),那么我们说 $W$ 是 $V$ 的一个 *子空间*.
 ]
 
 接下来的结果给出了检验向量空间的子集是否为子空间的最简单方法。
 
-#remark([检验子空间的条件])[
+#remark(title:[检验子空间的条件])[
  当且仅当 $V$ 的子集 $U$ 满足以下三个条件时， $U$ 是 $V$ 的子空间：
  - 加法恒等元 \ $0 in U$ 
  - 对于加法封闭 \ $u,w in U => u+w in U$ 
@@ -82,21 +82,21 @@
 ]
 
 #pagebreak()
-
+#set text(lang:"en")
 = Vector space with measurement
 
 Back in middle school, we know such mapping called 'inner product', who receives 2 vectors and gives out one value. With innner product, we can define the length of a vector, angles of 2 vectors, and so on ... and that's the motivation of this chapter.
 == Bilinear function
 From the concept of inner product, we could formalize a kind of function $f: V times V -> FF$ , and it's also a linear stuff.
 
-#definition("Bilinear function")[
+#definition(title:"Bilinear function")[
   For $f: V times V -> FF$, if it satisfies linearity for both of the 2 variables, aka.
   - $f(k alpha_1+alpha_2, beta)=k f(alpha_1,beta)+f(alpha_2,beta)$
   - $f(alpha , k beta_1+beta_2)=k f(alpha,beta_1)+f(alpha+beta_2)$
   then we call such $f$ a *bilinear function* on $V$.
 ]
 
-#theorem("Expansion of bilinear function")[
+#theorem(title:"Expansion of bilinear function")[
   Let $V = "span" (e_1,e_2, dots.h.c ,e_n )$, and 2 vectors in $V$ are $alpha = (a_1,a_2, dots.h.c ,a_n)' , beta = (b_1,b_2, dots.h.c ,b_n)'$, we have
 
   $
@@ -107,7 +107,7 @@ From the concept of inner product, we could formalize a kind of function $f: V t
   Use the linearity to expand $f$, first $alpha$, then $beta$. Readers can verify themselves.
 ]
 
-#theorem("Matrix represention of bilinear function")[
+#theorem(title:"Matrix represention of bilinear function")[
   Let $V="span"( e_1,e_2, dots.h.c ,e_n ),
   alpha = [e_1 space e_2 space dots.h.c space e_n] x,
   beta = [e_1 space e_2 space dots.h.c space e_n] y$, consider a matrix
@@ -129,7 +129,7 @@ We call matrix $A$ a *measure matrix*. You may be confused with this naming, but
 
 However, for this matrix $A$ we can interpret it from another perspective.
 
-#theorem("Another interpretation of measure matrix")[
+#theorem(title:"Another interpretation of measure matrix")[
   Let $V="span"\{ e_1,e_2, dots.h.c ,e_n \}$, its dual space with dual basis $V'="span"\{ f_1,f_2, dots.h.c ,f_n \}$ and $f$ is a bilinear function on $V$. Consider a mapping $phi: V -> V'$, where $phi(beta)=f(x, beta)$, we have
   $
     phi [e_1 space e_2 space dots.h.c space e_n]=
@@ -142,7 +142,7 @@ However, for this matrix $A$ we can interpret it from another perspective.
 ]
 
 
-#problem("Basis")[
+#problem(title:"Basis")[
   List a basis for the following linear spaces with default addition and scaling operator:
   - $RR^(2) $
   - $CC$  
