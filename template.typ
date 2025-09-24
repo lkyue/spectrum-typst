@@ -20,6 +20,7 @@
 
   set par(first-line-indent: 2em)
   set math.mat(delim: "[")
+  set math.cases(gap: 0.5em)
 
   set page(
     numbering: "1",
