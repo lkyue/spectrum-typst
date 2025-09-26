@@ -4,7 +4,8 @@ notes template in typst
 ## features
 - env for def, thm, problem, proof, sol, lemma etc.
 - school logo
-- auto numbering
+- auto numbering for thmenv
+- auto numbering for labeled formula
 - support watermark
 - some .svg pics can be used as cover in src directory
 

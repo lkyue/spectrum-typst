@@ -74,6 +74,7 @@
   }
 
   show heading.where(level: 2): t => context {
+    counter(math.equation).update(0)
     set par(first-line-indent: 0em)
     set text(size: 18pt)
 
@@ -85,6 +86,42 @@
     set text(size: 14pt)
 
     [#counter(heading).display("1.1.1") #t.body]
+  }
+
+  show math.equation: it => {
+    if it.fields().keys().contains("label") {
+      math.equation(
+        block: true,
+        numbering: n => {
+          let count = counter(heading).get()
+          let h1 = count.first()
+          let h2 = count.at(1, default: 0)
+          numbering("(1.1.1)", h1, h2, n)
+        },
+        it,
+      )
+    } else {
+      it
+    }
+  }
+
+  show ref: it => context {
+    let el = it.element
+    if el != none and el.func() == math.equation {
+      let count = counter(heading).at(el.location())
+      let h1 = count.first()
+      let h2 = count.at(1, default: 0)
+      let fmt = "Eq"
+      if text.lang == "zh" { fmt = "式" }
+      link(el.location(), numbering(
+        fmt + " (1.1.1)",
+        h1,
+        h2,
+        counter(math.equation).at(el.location()).at(0) + 1,
+      ))
+    } else {
+      it
+    }
   }
 
   let cover = {
