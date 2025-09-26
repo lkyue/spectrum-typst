@@ -20,8 +20,8 @@
   - 全体复数集合用 $CC$ 表示：
   $
     CC=\{ a+b i: a,b in RR \}
-  $
-  - $CC$ 上的加法和乘法定义为
+  $<complex>
+  - $CC$ 上的加法和乘法定义为 @complex
   $
     (a+b i)+(c+d i)=(a+c)+(b+d)i \
     (a+b i)(c+d i)=(a c-b d )+(a d + b c)i
@@ -101,10 +101,10 @@ From the concept of inner product, we could formalize a kind of function $f: V t
 
   $
     f(alpha,beta)=sum_(i=1)^(n) sum_(j=1)^(n) a_i b_j dot f(e_i,e_j)
-  $
+  $<eq-2>
 ]
 #proof[
-  Use the linearity to expand $f$, first $alpha$, then $beta$. Readers can verify themselves.
+  Use the linearity to expand $f$ like @eq-2, first $alpha$, then $beta$. Readers can verify themselves.
 ]
 
 #theorem(title:"Matrix represention of bilinear function")[
