@@ -5,6 +5,6 @@ entrypoint = "template.typ"
 description = "A versatile Typst notes template with theorem environments and multi-discipline support."
 authors = ["YUE Linkang"]
 license = "MIT"
-repository = "https://github.com/syqjwq/spectrum-typst"
+repository = "https://github.com/lkyue/spectrum-typst"
 keywords = ["notes", "theorem", "math", "physics", "chemistry"]
 categories = ["report", "book"]

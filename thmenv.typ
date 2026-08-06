@@ -3,15 +3,12 @@
 #import "utils.typ": *
 
 #let colors = (
-  "1": rgb("b6710a"),
-  "2": rgb("FBACBE"),
-  "3": rgb("FFBA49"),
-  "purple":rgb("#4f078d"),
-  "definition": rgb("#255C99"), // 3 definition
-  "problem": rgb("7B0828"), // 4 problem
-  "theorem": rgb("4956cf"), // 5 theorem
-  "example": rgb("FFD166"), // 6 example
-  "remark": rgb("A997DF"), // 7 remark
+  "theorem":    rgb("#5E81AC"),
+  "lemma":      rgb("#8FBCBB"),
+  "definition": rgb("#81A1C1"),
+  "example":    rgb("#D08770"),
+  "remark":     rgb("#B48EAD"),
+  "problem":    rgb("#BF616A"),
 )
 
 #let thmprefix(t, color: rgb("#000000")) = {
@@ -110,7 +107,7 @@
   inherited-levels: 2, // useful when you need a new counter
   inherited-from: heading, // heading or just another counter
   // render: rect-box-style.with(fill: colors.at("theorem")),
-  render: line-box-style.with(fill: colors.at("purple").lighten(60%)),
+  render: line-box-style.with(fill: colors.at("theorem")),
 )
 
 #let (definition-counter, definition-box, definition, show-definition) = make-frame(
@@ -119,7 +116,7 @@
   inherited-levels: 2,
   inherited-from: heading,
   // render: rect-box-style.with(fill: colors.at("definition")),
-  render: round-box-style.with(fill:colors.at("purple")),
+  render: round-box-style.with(fill: colors.at("definition")),
 
 )
 
