@@ -1,19 +1,12 @@
-# notes-template
-notes template in typst
+# basis-typst
+Adapted from @syqwq's project of "notes-template"
 
-## features
-- env for def, thm, problem, proof, sol, lemma etc.
-- school logo
-- auto numbering for thmenv
-- auto numbering for labeled formula
-- support watermark
-- some .svg pics can be used as cover in src directory
+## Background credit
 
-## previews
-![封面](./pic/out1.svg)
-![ch-1](./pic/out3.svg)
-![content](./pic/out4.svg)
-![ch-2](./pic/out5.svg)
+@Mohamed_hassan on Pixabay
+
+@yayangart on Pixabay
+
 
 ---
-author: syqwq
+author: lkyue

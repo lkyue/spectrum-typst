@@ -1,11 +1,8 @@
-#import "@preview/hydra:0.6.2": hydra, selectors
-#import "@preview/zebraw:0.5.5": zebraw
 #import "thmenv.typ": *
 #import "utils.typ": *
-#import emoji: drops, eyes
 
 
-#let note(course: "", author: "syqwq", watermark: "logo", body) = {
+#let note(course: "", author: "", watermark: none, body) = {
   set text(
     font: (
       en-font-serif,
@@ -16,14 +13,15 @@
 
   show "。": ". "
   show: show-thmenv
-  show: zebraw
+  set table(fill: (r, c) => if calc.rem(r, 2) == 0 { luma(235) })
 
   set par(first-line-indent: 2em)
-  set math.mat(delim: "[")
   set math.cases(gap: 0.5em)
 
   set page(
     numbering: "1",
+    paper: "a4",
+    margin: (x: 1.5cm, y: 1.5cm),
     header: context {
       let current-page = here().page()
 
@@ -35,11 +33,9 @@
 
       box(
         grid(
-          columns: (1fr,) * 3,
-          align: (horizon + left, horizon + center, horizon + right),
-          box(height: 50%, image("src/ecnu-logo.svg")),
-          box()[#context hydra(2, skip-starting: false)],
-          box(text()[\- #here().page() -]),
+          columns: (1fr, 1fr),
+          align: (horizon + left, horizon + right),
+          text()[\- #here().page() -],
         ),
         inset: 4pt,
         stroke: (bottom: 0.5pt),
@@ -55,7 +51,6 @@
 
       align(center)[\- #current-page -]
     },
-    background: rotate(-40deg, image("src/syqwq-logo.svg", height: 10%)),
   )
 
   set page(background: rotate(-60deg, text(100pt, fill: rgb("#faf2f1"))[
@@ -65,12 +60,16 @@
   set heading(numbering: "1.")
 
   show heading.where(level: 1): t => context {
-    if here().page() == 2 { return t }
+    if t.body in ([Contents], [目录]) { return t }
 
-    let chp = context counter(heading).get().at(0)
+    let chp = counter(heading).get().at(0)
 
     set text(size: 30pt, font: (en-font-serif, cn-font-serif))
-    [Chapter #chp \ #t.body \ ]
+    if chp > 1 {
+      pagebreak() + [Chapter #chp \ #t.body \ ]
+    } else {
+      [Chapter #chp \ #t.body \ ]
+    }
   }
 
   show heading.where(level: 2): t => context {
@@ -117,7 +116,7 @@
         fmt + " (1.1.1)",
         h1,
         h2,
-        counter(math.equation).at(el.location()).at(0) + 1,
+        counter(math.equation).at(el.location()).at(0)
       ))
     } else {
       it
@@ -127,16 +126,10 @@
   let cover = {
     let fill-color = rgb("#D8CFC6")
 
-    set page(footer: none, background: image("src/bg-6.svg", width: 101%, fit: "cover"))
+    set page(footer: none, background: image("src/bg05.svg", width: 101%, fit: "cover"))
 
     set text(fill: white)
     set par(first-line-indent: 0pt)
-
-
-    place(
-      image("src/ecnu-logo-white.svg", height: 30%),
-      dy: -80pt,
-    )
 
     v(5fr)
     [
@@ -146,7 +139,7 @@
         offset: 11pt,
       )]
       #align(left)[
-        #text(size: 45pt, weight: 800)[笔记]
+        #text(size: 30pt, weight: 800)[Revision Notes]
       ]
     ]
     v(1em)
@@ -154,7 +147,7 @@
       font: (en-font-sans, cn-font-sans),
       size: 16pt,
       weight: 800,
-    )[#math.copyright #author \ East China Normal University]
+    )[#math.copyright #author]
     v(10fr)
   }
 
@@ -165,6 +158,6 @@
   outline(depth: 2)
 
   pagebreak()
-
+  
   body
 }
