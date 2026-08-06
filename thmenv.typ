@@ -3,12 +3,12 @@
 #import "utils.typ": *
 
 #let colors = (
-  "theorem":    rgb("#5E81AC"),
-  "lemma":      rgb("#8FBCBB"),
-  "definition": rgb("#81A1C1"),
-  "example":    rgb("#D08770"),
-  "remark":     rgb("#B48EAD"),
-  "problem":    rgb("#BF616A"),
+  "theorem":    rgb("#3D5A8C"),
+  "lemma":      rgb("#4A7A6B"),
+  "definition": rgb("#5A8A9C"),
+  "example":    rgb("#B8863A"),
+  "remark":     rgb("#8B6B9E"),
+  "problem":    rgb("#B8554A"),
 )
 
 #let thmprefix(t, color: rgb("#000000")) = {

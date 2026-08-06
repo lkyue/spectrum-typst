@@ -47,16 +47,9 @@
 == Maxwell's Equations
 
 #property(title: "Gauss's Law")[
-  $ div vb(E) = rho / epsilon_0, $ where $vb(E)$ is the electric field.
+  $ div vb(E) = rho / epsilon_0, $ 
 ]
 
-#property(title: "Faraday's Law")[
-  $ curl vb(E) = -pdv(vb(B), t). $ A time-varying $vb(B)$ induces a circulating $vb(E)$.
-]
-
-#property(title: "Ampère-Maxwell Law")[
-  $ curl vb(B) = mu_0 vb(J) + mu_0 epsilon_0 pdv(vb(E), t). $
-]
 
 #table(
   columns: 3,
