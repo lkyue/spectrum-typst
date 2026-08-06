@@ -1,0 +1,10 @@
+[package]
+name = "spectrum-typst"
+version = "0.1.0"
+entrypoint = "template.typ"
+description = "A versatile Typst notes template with theorem environments and multi-discipline support."
+authors = ["YUE Linkang"]
+license = "MIT"
+repository = "https://github.com/syqjwq/spectrum-typst"
+keywords = ["notes", "theorem", "math", "physics", "chemistry"]
+categories = ["report", "book"]

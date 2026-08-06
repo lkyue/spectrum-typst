@@ -1,4 +1,4 @@
-#import "template.typ": *
+#import "@local/spectrum-typst:0.1.0": *
 #import "@preview/algo:0.3.6"
 #import "@preview/alchemist:0.2.0": *
 #import "@preview/cetz:0.5.2": canvas, draw
