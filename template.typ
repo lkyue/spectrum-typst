@@ -2,7 +2,7 @@
 #import "utils.typ": *
 
 
-#let note(course: "", author: "", watermark: none, body) = {
+#let note(title: "Sample", author: "John Doe", lecturer: "", institution: "", watermark: none, cover: true, body) = {
   set text(
     font: (
       en-font-serif,
@@ -123,41 +123,80 @@
     }
   }
 
-  let cover = {
-    let fill-color = rgb("#D8CFC6")
+  if cover {
+    let cover-page = {
+      set page(footer: none, background: image("src/bg05.svg", width: 101%, fit: "cover"))
 
-    set page(footer: none, background: image("src/bg05.svg", width: 101%, fit: "cover"))
+      set text(fill: white)
+      set par(first-line-indent: 0pt)
 
-    set text(fill: white)
-    set par(first-line-indent: 0pt)
-
-    v(5fr)
-    [
-      #align(left)[#underline(
-        (underline(text(size: 45pt, weight: 800)[#course], offset: 7pt, stroke: red)),
-        stroke: red,
-        offset: 11pt,
-      )]
-      #align(left)[
-        #text(size: 30pt, weight: 800)[Revision Notes]
+      v(5fr)
+      [
+        #align(left)[#underline(
+          (underline(text(size: 45pt, weight: 800)[#title], offset: 7pt, stroke: red)),
+          stroke: red,
+          offset: 11pt,
+        )]
+        #align(left)[
+          #text(size: 30pt, weight: 800)[Revision Notes]
+        ]
       ]
+      v(1em)
+      text(
+        font: (en-font-sans, cn-font-sans),
+        size: 14pt,
+        weight: 800,
+      )[#math.copyright #author]
+      v(0.3em)
+      if lecturer != "" {
+        text(
+          font: (en-font-sans, cn-font-sans),
+          size: 12pt,
+        )[Lecturer: #lecturer]
+        v(0.3em)
+      }
+      if institution != "" {
+        text(
+          font: (en-font-sans, cn-font-sans),
+          size: 12pt,
+        )[#institution]
+        v(0.3em)
+      }
+      text(
+        font: (en-font-sans, cn-font-sans),
+        size: 12pt,
+      )[#datetime.today().display("[year]-[month padding:zero]-[day padding:zero]")]
+      v(10fr)
+    }
+
+    cover-page
+
+    pagebreak()
+
+    outline(depth: 2)
+
+    pagebreak()
+  } else {
+    set par(first-line-indent: 0pt)
+    align(center)[
+      #text(size: 24pt, weight: "bold")[#title]
+      #v(0.5em)
+      #text(size: 14pt, font: (en-font-sans, cn-font-sans))[#author]
+      #v(0.3em)
+      #if lecturer != "" {
+        text(size: 12pt, font: (en-font-sans, cn-font-sans))[Lecturer: #lecturer]
+        v(0.3em)
+      }
+      #if institution != "" {
+        text(size: 12pt, font: (en-font-sans, cn-font-sans))[#institution]
+        v(0.3em)
+      }
+      #text(size: 12pt, font: (en-font-sans, cn-font-sans))[#datetime.today().display("[year]-[month padding:zero]-[day padding:zero]")]
     ]
-    v(1em)
-    text(
-      font: (en-font-sans, cn-font-sans),
-      size: 16pt,
-      weight: 800,
-    )[#math.copyright #author]
-    v(10fr)
+    v(2em)
+    set par(first-line-indent: 2em)
+    pagebreak()
   }
-
-  cover
-
-  pagebreak()
-
-  outline(depth: 2)
-
-  pagebreak()
   
   body
 }

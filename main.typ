@@ -5,7 +5,7 @@
 #import "@preview/unify:0.8.1": *
 #import "@preview/physica:0.9.8": *
 
-#show: note.with(course: "STEM Notes", author: "John Doe")
+#show: note.with(title: "STEM Notes", author: "John Doe", cover: true)
 #set text(lang:"en")
 
 = Mathematics

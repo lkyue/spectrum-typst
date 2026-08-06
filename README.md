@@ -1,5 +1,6 @@
-# basis-typst
-Adapted from @syqwq's project of "notes-template"
+# spectrum-typst
+Adapted from @syqwq's project of "notes-template".
+Optimized for a variety of STEM subjects.
 
 ## Background credit
 
