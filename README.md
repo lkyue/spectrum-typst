@@ -6,6 +6,9 @@ Adapted from [@syqwq's notes-template](https://github.com/syqwq-OMG/notes-templa
 ## Features
 
 - **Theorem environments** — theorem, lemma, definition, example, remark, property, proposition, problem, proof, solution
+- **Auto QED placement** on proofs (via theorion)
+- **CJK punctuation normalization** for mixed Chinese-English writing
+- **i18n cover subtitle** — English and Chinese support
 - **Multi-level headings** with auto-numbering
 - **Striped tables** with alternating row colors
 - **Equation numbering** scoped to sections
@@ -87,6 +90,8 @@ Content goes here...
 | `institution` | `str` | `""` | Institution name (hidden if empty) |
 | `watermark` | `str` | `none` | Background watermark text |
 | `cover` | `bool` | `true` | Full cover page + TOC if `true`, compact header if `false` |
+| `lang` | `str` | `"en"` | Language for i18n (`"en"`, `"zh"`) |
+| `subtitle` | `str` | `auto` | Cover subtitle (`auto` uses i18n default) |
 | `body` | `content` | *required* | Document content |
 
 ## Theorem Environments
@@ -97,7 +102,7 @@ Content goes here...
 ]
 
 #proof[
-  By rearrangement of squares. $qed$
+  By rearrangement of squares.
 ]
 
 #definition[

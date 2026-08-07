@@ -2,7 +2,16 @@
 #import "utils.typ": *
 
 
-#let note(title: "Sample", author: "John Doe", lecturer: "", institution: "", watermark: none, cover: true, body) = {
+#let i18n-map = (
+  en: (
+    subtitle: "Revision Notes",
+  ),
+  zh: (
+    subtitle: "复习笔记",
+  ),
+)
+
+#let note(title: "Sample", author: "John Doe", lecturer: "", institution: "", watermark: none, cover: true, lang: "en", subtitle: auto, body) = {
   set text(
     font: (
       en-font-serif,
@@ -12,6 +21,15 @@
   )
 
   show "。": ". "
+  show "，": ", "
+  show "；": "; "
+  show "：": ": "
+  show "（": "("
+  show "）": ")"
+  show "【": "["
+  show "】": "]"
+  show "《": "<"
+  show "》": ">"
   show: show-thmenv
   set table(fill: (r, c) => if calc.rem(r, 2) == 0 { luma(235) })
 
@@ -55,7 +73,7 @@
 
   set page(background: rotate(-60deg, text(100pt, fill: rgb("#faf2f1"))[
     #strong()[#watermark]
-  ])) if watermark != "logo"
+  ])) if watermark != none
 
   set heading(numbering: "1.")
 
@@ -131,6 +149,11 @@
       set par(first-line-indent: 0pt)
 
       v(5fr)
+      let s = if subtitle == auto {
+        i18n-map.at(lang, default: i18n-map.at("en")).at("subtitle")
+      } else {
+        subtitle
+      }
       [
         #align(left)[#underline(
           (underline(text(size: 45pt, weight: 800)[#title], offset: 7pt, stroke: red)),
@@ -138,7 +161,7 @@
           offset: 11pt,
         )]
         #align(left)[
-          #text(size: 30pt, weight: 800)[Revision Notes]
+          #text(size: 30pt, weight: 800)[#s]
         ]
       ]
       v(1em)

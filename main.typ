@@ -1,4 +1,5 @@
-#import "@local/spectrum-typst:0.1.0": *
+#import "template.typ": *
+// #import "@local/spectrum-typst:0.1.0": *
 #import "@preview/algo:0.3.6"
 #import "@preview/alchemist:0.2.0": *
 #import "@preview/cetz:0.5.2": canvas, draw
@@ -23,7 +24,7 @@
 ]
 
 #proof[
-  By Taylor: $ f(vec(x) - alpha grad f) = f(vec(x)) - alpha |grad f|^2 + cal(O)(alpha^2). $ For small $alpha$, the linear term dominates. $qed$
+  By Taylor: $ f(vec(x) - alpha grad f) = f(vec(x)) - alpha |grad f|^2 + cal(O)(alpha^2). $ For small $alpha$, the linear term dominates.
 ]
 
 #theorem(title: "Chain Rule")[

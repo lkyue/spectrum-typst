@@ -1,6 +1,8 @@
-#import "@preview/theorion:0.4.0": *
+#import "@preview/theorion:0.6.0": *
 #import "@preview/showybox:2.0.4": showybox
 #import "utils.typ": *
+
+#set-qed-symbol[#math.qed]
 
 #let colors = (
   "theorem":    rgb("#3D5A8C"),
@@ -35,7 +37,7 @@
   showybox(
     width: 100%,
     radius: 0.3em,
-    breakable: false,
+    breakable: true,
     padding: (top: 0em, bottom: 0em),
     frame: (
       body-color: fill.lighten(96%).transparentize(50%),
@@ -63,7 +65,7 @@
     title:[#prefixfmt(prefix) #titlefmt(title)],
     width: 100%,
     radius: 0.3em,
-    breakable: false,
+    breakable: true,
     frame: (
       title-color:fill,
       border-color: fill.darken(10%),
@@ -87,7 +89,7 @@
   showybox(
     title:[#prefixfmt(prefix) #titlefmt(title)],
     width: 100%,
-    breakable: false,
+    breakable: true,
     frame: (
       title-color:none,
       border-color: fill.darken(10%),
@@ -163,32 +165,11 @@
 #let (problem-counter, problem-box, problem, show-problem) = make-frame(
   "problem",
   theorion-i18n-map.at("problem"),
-  inherited-levels: 1,
+  inherited-levels: 2,
   inherited-from: heading,
   render: rect-box-style.with(fill: colors.at("problem")),
 )
 
-#let proof(body, name: none) = {
-  thmprefix[Proof]
-  if name != none {
-    [ #thmtitle[#name]]
-  }
-  thmprefix[.]
-  body
-  h(1fr)
-  $qed$
-}
-
-#let solution(body, name: none) = {
-  thmprefix[Solution]
-  if name != none {
-    [ #thmtitle[#name]]
-  }
-  thmprefix[.]
-  body
-  h(1fr)
-  $rect.v$
-}
 
 #let show-thmenv(body) = {
   show math.equation: it => {

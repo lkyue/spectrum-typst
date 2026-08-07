@@ -1,5 +1,5 @@
 #let cn-font-serif = "Source Han Serif SC"
-#let en-font-serif = "Minion Pro"
+#let en-font-serif = "Libertinus Serif"
 #let cn-font-sans = "Source Han Sans SC"
 #let en-font-sans = "Noto Sans"
 
