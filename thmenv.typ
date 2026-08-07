@@ -4,6 +4,12 @@
 
 #set-qed-symbol[#math.qed]
 
+#let thm-numbering-state = state("spectrum-thm-numbering", true)
+#let show-prefix(prefix, supplement-map) = context {
+  let s = theorion-i18n(supplement-map)
+  if thm-numbering-state.get() { prefix } else { s }
+}
+
 #let colors = (
   "theorem":    rgb("#3D5A8C"),
   "lemma":      rgb("#4A7A6B"),
@@ -29,7 +35,7 @@
   text(font: (en-font-serif, cn-font-serif), fill: color)[#t]
 }
 
-#let rect-box-style(prefix: auto, title: "", full-title: auto, fill: luma(500), body) = {
+#let rect-box-style(prefix: auto, title: "", full-title: auto, fill: luma(500), supplement: "", body) = {
   let titlefmt = thmtitle.with(color: fill.darken(30%))
   let bodyfmt = thmtext.with(color: fill.darken(70%))
   let prefixfmt = thmprefix.with(color: fill.darken(30%))
@@ -49,20 +55,20 @@
     [
       #set par(first-line-indent: 2em)
       #block[
-        #prefixfmt(prefix) #titlefmt(title)
+        #prefixfmt(show-prefix(prefix, supplement)) #titlefmt(title)
       ]
       #bodyfmt(body)
     ],
   )
 }
 
-#let round-box-style(prefix: auto, title: "", full-title: auto, fill: luma(500), body)={
+#let round-box-style(prefix: auto, title: "", full-title: auto, fill: luma(500), supplement: "", body)={
   let titlefmt = thmtitle.with(color: white)
   let bodyfmt = thmtext
   let prefixfmt = thmprefix.with(color: white)
 
   showybox(
-    title:[#prefixfmt(prefix) #titlefmt(title)],
+    title:[#prefixfmt(show-prefix(prefix, supplement)) #titlefmt(title)],
     width: 100%,
     radius: 0.3em,
     breakable: true,
@@ -81,13 +87,13 @@
   )
 }
 
-#let line-box-style(prefix: auto, title: "", full-title: auto, fill: luma(500), body)={
+#let line-box-style(prefix: auto, title: "", full-title: auto, fill: luma(500), supplement: "", body)={
   let titlefmt = thmtitle.with(color: black)
   let bodyfmt = thmtext
   let prefixfmt = thmprefix.with(color: black)
 
   showybox(
-    title:[#prefixfmt(prefix) #titlefmt(title)],
+    title:[#prefixfmt(show-prefix(prefix, supplement)) #titlefmt(title)],
     width: 100%,
     breakable: true,
     frame: (
@@ -109,7 +115,7 @@
   inherited-levels: 2, // useful when you need a new counter
   inherited-from: heading, // heading or just another counter
   // render: rect-box-style.with(fill: colors.at("theorem")),
-  render: line-box-style.with(fill: colors.at("theorem")),
+  render: line-box-style.with(fill: colors.at("theorem"), supplement: theorion-i18n-map.at("theorem")),
 )
 
 #let (definition-counter, definition-box, definition, show-definition) = make-frame(
@@ -118,7 +124,7 @@
   inherited-levels: 2,
   inherited-from: heading,
   // render: rect-box-style.with(fill: colors.at("definition")),
-  render: round-box-style.with(fill: colors.at("definition")),
+  render: round-box-style.with(fill: colors.at("definition"), supplement: theorion-i18n-map.at("definition")),
 
 )
 
@@ -127,7 +133,7 @@
   theorion-i18n-map.at("lemma"),
   inherited-levels: 2,
   inherited-from: heading,
-  render: rect-box-style.with(fill: colors.at("theorem")),
+  render: rect-box-style.with(fill: colors.at("theorem"), supplement: theorion-i18n-map.at("lemma")),
 )
 
 #let (example-counter, example-box, example, show-example) = make-frame(
@@ -135,7 +141,7 @@
   theorion-i18n-map.at("example"),
   inherited-levels: 2,
   inherited-from: heading,
-  render: rect-box-style.with(fill: colors.at("example")),
+  render: rect-box-style.with(fill: colors.at("example"), supplement: theorion-i18n-map.at("example")),
 )
 
 #let (remark-counter, remark-box, remark, show-remark) = make-frame(
@@ -143,7 +149,7 @@
   theorion-i18n-map.at("remark"),
   inherited-levels: 2,
   inherited-from: heading,
-  render: rect-box-style.with(fill: colors.at("remark")),
+  render: rect-box-style.with(fill: colors.at("remark"), supplement: theorion-i18n-map.at("remark")),
 )
 
 #let (property-counter, property-box, property, show-property) = make-frame(
@@ -151,7 +157,7 @@
   theorion-i18n-map.at("property"),
   inherited-levels: 2,
   inherited-from: heading,
-  render: rect-box-style.with(fill: colors.at("theorem")),
+  render: rect-box-style.with(fill: colors.at("theorem"), supplement: theorion-i18n-map.at("property")),
 )
 
 #let (problem-counter, problem-box, problem, show-problem) = make-frame(
@@ -159,7 +165,7 @@
   theorion-i18n-map.at("problem"),
   inherited-levels: 2,
   inherited-from: heading,
-  render: rect-box-style.with(fill: colors.at("problem")),
+  render: rect-box-style.with(fill: colors.at("problem"), supplement: theorion-i18n-map.at("problem")),
 )
 
 

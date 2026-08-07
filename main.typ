@@ -55,9 +55,6 @@
 ]
 
 
-#pagebreak()
-
-Here is a common exam-style question.
 #problem[
   Prove that a continuous function on a compact set is uniformly continuous.
 ]
