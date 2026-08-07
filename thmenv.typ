@@ -20,12 +20,12 @@
   text(font: (en-font-sans, cn-font-sans), weight: 350, fill: color)[#t]
 }
 #let thmtext(t, color: rgb("#000000")) = {
-  let a = t.children
-  if (a.at(0) == [ ]) {
-    a.remove(0)
+  if t.has("children") and t.children.len() > 0 {
+    let c = t.children
+    if c.first() == [ ] {
+      t = c.slice(1).join()
+    }
   }
-  t = a.join()
-
   text(font: (en-font-serif, cn-font-serif), fill: color)[#t]
 }
 
@@ -42,8 +42,8 @@
     frame: (
       body-color: fill.lighten(96%).transparentize(50%),
       border-color: fill.darken(10%),
-      thickness: (left: 2pt),
-      inset: 1.2em,
+      thickness: (left: 3pt),
+      inset: 1em,
       radius: 0em,
     ),
     [
@@ -172,11 +172,6 @@
 
 
 #let show-thmenv(body) = {
-  show math.equation: it => {
-    show regex("\p{script=Han}"): set text(font: cn-font-serif, weight: "light")
-    it
-  }
-
   show: show-theorem
   show: show-lemma
   show: show-definition

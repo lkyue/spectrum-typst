@@ -2,16 +2,7 @@
 #import "utils.typ": *
 
 
-#let i18n-map = (
-  en: (
-    subtitle: "Revision Notes",
-  ),
-  zh: (
-    subtitle: "复习笔记",
-  ),
-)
-
-#let note(title: "Sample", author: "John Doe", lecturer: "", institution: "", watermark: none, cover: true, lang: "en", subtitle: auto, body) = {
+#let note(title: "Sample", author: "John Doe", lecturer: "", institution: "", watermark: none, cover: true, subtitle: none, body) = {
   set text(
     font: (
       en-font-serif,
@@ -84,7 +75,7 @@
 
     set text(size: 30pt, font: (en-font-serif, cn-font-serif))
     if chp > 1 {
-      pagebreak() + [Chapter #chp \ #t.body \ ]
+      pagebreak(weak: true) + [Chapter #chp \ #t.body \ ]
     } else {
       [Chapter #chp \ #t.body \ ]
     }
@@ -106,6 +97,7 @@
   }
 
   show math.equation: it => {
+    show regex("\p{script=Han}"): set text(font: cn-font-serif, weight: "light")
     if it.fields().keys().contains("label") {
       math.equation(
         block: true,
@@ -149,11 +141,6 @@
       set par(first-line-indent: 0pt)
 
       v(5fr)
-      let s = if subtitle == auto {
-        i18n-map.at(lang, default: i18n-map.at("en")).at("subtitle")
-      } else {
-        subtitle
-      }
       [
         #align(left)[#underline(
           (underline(text(size: 45pt, weight: 800)[#title], offset: 7pt, stroke: red)),
@@ -161,7 +148,7 @@
           offset: 11pt,
         )]
         #align(left)[
-          #text(size: 30pt, weight: 800)[#s]
+          #text(size: 30pt, weight: 800)[#subtitle]
         ]
       ]
       v(1em)
@@ -203,6 +190,8 @@
     set par(first-line-indent: 0pt)
     align(center)[
       #text(size: 24pt, weight: "bold")[#title]
+      #v(0.3em)
+      #text(size: 16pt)[#subtitle]
       #v(0.5em)
       #text(size: 14pt, font: (en-font-sans, cn-font-sans))[#author]
       #v(0.3em)

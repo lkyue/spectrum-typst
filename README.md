@@ -90,8 +90,7 @@ Content goes here...
 | `institution` | `str` | `""` | Institution name (hidden if empty) |
 | `watermark` | `str` | `none` | Background watermark text |
 | `cover` | `bool` | `true` | Full cover page + TOC if `true`, compact header if `false` |
-| `lang` | `str` | `"en"` | Language for i18n (`"en"`, `"zh"`) |
-| `subtitle` | `str` | `auto` | Cover subtitle (`auto` uses i18n default) |
+| `subtitle` | `str` | `"Revision Notes"` | Cover / header subtitle |
 | `body` | `content` | *required* | Document content |
 
 ## Theorem Environments
