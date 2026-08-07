@@ -1,221 +1,324 @@
 #import "template.typ": *
-// #import "@local/spectrum-typst:0.1.0": *
 #import "@preview/algo:0.3.6"
 #import "@preview/alchemist:0.2.0": *
-#import "@preview/cetz:0.5.2": canvas, draw
+#import "@preview/cetz:0.5.2"
 #import "@preview/unify:0.8.1": *
-#import "@preview/physica:0.9.8": * 
+#import "@preview/physica:0.9.8": *
 
-// Rewrite a usage sample file.
+#show: note.with(
+  title: "Spectrum Typst",
+  author: "Demo Document",
+  subtitle: "Feature Showcase",
+  cover: true,
+)
+#set text(lang: "en")
+
+= Theorem Environments
+
+== All Environment Types
+
+#theorem(title: "Mean Value Theorem")[
+  If $f$ is continuous on $[a, b]$ and differentiable on $(a, b)$, then
+  $ exists c in (a, b): f(b) - f(a) = f'(c)(b - a). $
+] <thm:mvt>
+
+#proof[
+  Apply Rolle's theorem to $g(x) = f(x) - f(a) - frac(f(b) - f(a), b - a)(x - a)$.
+]
+
+#lemma(title: "Triangle Inequality")[
+  For any vectors $bold(u), bold(v) in bb(R)^n$:
+  $ |bold(u) + bold(v)| <= |bold(u)| + |bold(v)|. $
+]
+
+#definition(title: "Group")[
+  A _group_ $(G, *) $ is a set $G$ with a binary operation $*$ satisfying:
+  + _Closure:_ $forall a, b in G, a * b in G$.
+  + _Associativity:_ $(a * b) * c = a * (b * c)$.
+  + _Identity:_ $exists e in G, forall a in G: e * a = a * e = a$.
+  + _Inverse:_ $forall a in G, exists a^(-1) in G: a * a^(-1) = a^(-1) * a = e$.
+]
+
+#property(title: "Determinant Multiplicativity")[
+  For any $n times n$ matrices $A$ and $B$:
+  $ det(A B) = det(A) dot det(B). $
+]
+
+#example(title: "Continuous but Not Differentiable")[
+  The Weierstrass function $W(x) = sum_(n=0)^oo a^n cos(b^n pi x)$ is continuous everywhere
+  but differentiable nowhere, for $0 < a < 1$ and odd $b$ with $a b > 1 + 3 pi / 2$.
+]
+
+#remark[
+  While continuity is necessary for differentiability, it is not sufficient.
+  The construction above is a classic counterexample.
+]
 
 
+#pagebreak()
 
+Here is a common exam-style question.
+#problem[
+  Prove that a continuous function on a compact set is uniformly continuous.
+]
 
-// #show: note.with(title: "STEM Notes", author: "John Doe", cover: true, subtitle: "Usage Guidance")
-// #set text(lang:"en")
+#solution[
+  Let $f: K -> bb(R)$ be continuous with $K$ compact. Given $epsilon > 0$, for each $x in K$ choose
+  $delta_x$ via continuity. The open cover ${B_(delta_x/2)(x)}$ has a finite subcover. Let
+  $delta = min_i delta_(x_i)/2$. For $|x - y| < delta$, both lie in some $B_(delta_(x_i))(x_i)$,
+  so $|f(x) - f(y)| < epsilon$. $qed$
+]
 
-// = Mathematics
+= Tables & Equations
 
-// == Partial Derivatives
+== Striped Tables
 
-// #definition[
-//   The partial derivative of $f: bb(R)^n -> bb(R)$ with respect to $x_i$ at $vec(x)$ is
-//   $ pdv(f, x_i) = lim_(h->0) (f(vec(x) + h e_i) - f(vec(x))) / h. $
-// ]
+All tables have alternating row colors automatically.
 
-// #lemma(title: "Descent Direction")[
-//   If $grad f != 0$, then $-grad f$ is a descent direction:
-//   $ exists alpha > 0, f(vec(x) - alpha grad f) < f(vec(x)). $
-// ]
+#table(
+  columns: 4,
+  table.header([Function], [Derivative], [Integral], [Series]),
+  [$e^x$],   [$e^x$],         [$e^x + C$],   [$sum_(n=0)^oo x^n / n!$],
+  [$sin x$],  [$cos x$],       [$-cos x + C$], [$sum_(n=0)^oo (-1)^n x^(2n+1) / (2n+1)!$],
+  [$cos x$],  [$-sin x$],      [$sin x + C$],  [$sum_(n=0)^oo (-1)^n x^(2n) / (2n)!$],
+  [$ln x$],   [$1/x$],         [$x ln x - x + C$], [—],
+)
 
-// #proof[
-//   By Taylor: $ f(vec(x) - alpha grad f) = f(vec(x)) - alpha |grad f|^2 + cal(O)(alpha^2). $ For small $alpha$, the linear term dominates.
-// ]
+== Labeled Equations
 
-// #theorem(title: "Chain Rule")[
-//   If $f(bold(x))$ and $bold(x)(bold(u))$ are differentiable, then
-//   $ pdv(f, u_i) = sum_j pdv(f, x_j) pdv(x_j, u_i). $
-// ]
+Equations with labels are numbered by section and can be cross-referenced.
 
-// == Common Gradients
+#definition(title: "Gradient and Hessian")[
+  The gradient of $f: bb(R)^n -> bb(R)$ is
+  $ grad f = (pdv(f, x_1), dots, pdv(f, x_n))^T. $ <eq:grad>
 
-// #table(
-//   columns: 4,
-//   table.header([$f$], [$grad f$], [Convex?], [Note]),
-//   [$|x|^2$],   [$2x$],  [Yes], [Strongly],
-//   [$x^T A x$], [$(A + A^T)x$], [if $A ⪰ 0$], [Quadratic],
-//   [$-log x$],  [$-1/x$], [Yes], [Log barrier],
-//   [$e^x$],     [$e^x$], [Yes], [Strictly],
-// )
+  The Hessian matrix is
+  $ bold(H)_f = mat(
+    pdv(f, x_1, 2), dots, pdv(f, x_1, x_n);
+    dots, dots, dots;
+    pdv(f, x_n, x_1), dots, pdv(f, x_n, 2)
+  ). $ <eq:hess>
+]
 
-// = Physics
+At a local minimum, @eq:grad vanishes and @eq:hess is positive semidefinite. See @thm:mvt for the
+foundation of gradient-based optimization.
 
-// == Maxwell's Equations
+= Pseudocode & Algorithms
 
-// #property(title: "Gauss's Law")[
-//   $ div vb(E) = rho / epsilon_0, $ 
-// ]
+== Gradient Descent
 
+#let gd-body = {
+  [Input: objective $f: bb(R)^n -> bb(R)$, initial $bold(x)_0$, step $alpha > 0$, tolerance $epsilon$]
+  linebreak()
+  [$k := 0$]
+  linebreak()
+  [while $|grad f(bold(x)_k)| > epsilon$ do]
+  linebreak()
+  algo.i
+  [#algo.comment[Compute descent direction]]
+  linebreak()
+  [#algo.i $bold(d)_k := -grad f(bold(x)_k)$ #algo.d]
+  linebreak()
+  [#algo.comment[Update with step size]]
+  linebreak()
+  [#algo.i $bold(x)_(k+1) := bold(x)_k + alpha bold(d)_k$ #algo.d]
+  linebreak()
+  [#algo.i $k := k + 1$ #algo.d]
+  linebreak()
+  algo.d
+  [return $bold(x)_k$]
+}
 
-// #table(
-//   columns: 3,
-//   table.header([Law], [Integral Form], [Differential Form]),
-//   [Gauss],   [$oint vb(E) dot dd(vb(A)) = q_"enc"/epsilon_0$], [$div vb(E) = rho/epsilon_0$],
-//   [Faraday], [$oint vb(E) dot dd(vb(l)) = - dv(,t) integral vb(B) dot dd(vb(A))$], [$curl vb(E) = -pdv(vb(B),t)$],
-//   [Ampère],  [$oint vb(B) dot dd(vb(l)) = mu_0 I_"enc" + mu_0 epsilon_0 dv(,t) integral vb(E) dot dd(vb(A))$], [$curl vb(B) = mu_0 vb(J) + mu_0 epsilon_0 pdv(vb(E),t)$],
-// )
+#algo.algo(
+  line-numbers: true,
+  indent-size: 1.5em,
+  title: "Gradient Descent",
+  gd-body,
+)
 
-// == Electromagnetic Wave
+== Newton's Method
 
-// #definition[
-//   In free space, taking curl of Faraday and substituting Ampère:
-//   $ laplacian vb(E) = mu_0 epsilon_0 pdv(vb(E), t, 2). $
-//   This is the wave equation with speed $c = 1 / sqrt(mu_0 epsilon_0)$.
-// ]
+#let newton-body = {
+  [Input: $f$, $bold(x)_0$, tolerance $epsilon$]
+  linebreak()
+  [$k := 0$]
+  linebreak()
+  [while $|grad f(bold(x)_k)| > epsilon$ do]
+  linebreak()
+  algo.i
+  [#algo.comment[Compute Newton direction]]
+  linebreak()
+  [#algo.i Solve $bold(H)_f(bold(x)_k) bold(d)_k = -grad f(bold(x)_k)$ #algo.d]
+  linebreak()
+  [#algo.i $bold(x)_(k+1) := bold(x)_k + bold(d)_k$ #algo.d]
+  linebreak()
+  [#algo.i $k := k + 1$ #algo.d]
+  linebreak()
+  algo.d
+  [return $bold(x)_k$]
+}
 
-// #example(title: "Plane Wave")[
-//   $vb(E)(z, t) = E_0 cos(k z - omega t) vu(x)$ propagates along $z$.
+#algo.algo(
+  line-numbers: true,
+  indent-size: 1.5em,
+  title: "Newton's Method",
+  newton-body,
+)
 
-//   #canvas(length: 1cm, {
-//     import draw: *
-//     set-style(axes: (tick-length: 0.05))
-//     line((-0.5, 0), (5.5, 0), mark: (end: ">"))
-//     line((0, -1.5), (0, 1.5), mark: (end: ">"))
-//     content((5.8, 0), [$z$])
-//     content((0.1, 1.7), [$vb(E)$])
-//     line((-0.2, 1), (0, 1)); content((-0.3, 1), [$E_0$])
-//     line((0, 0), (0.25, 1), stroke: red)
-//     line((0.25, 1), (0.75, -1), stroke: red)
-//     line((0.75, -1), (1.25, 1), stroke: red)
-//     line((1.25, 1), (1.75, -1), stroke: red)
-//     line((1.75, -1), (2.25, 1), stroke: red)
-//     line((2.25, 1), (2.75, -1), stroke: red)
-//     line((2.75, -1), (3.25, 1), stroke: red)
-//     line((3.25, 1), (3.75, -1), stroke: red)
-//     line((3.75, -1), (4.25, 1), stroke: red)
-//     line((4.25, 1), (4.75, -1), stroke: red)
-//     line((4.75, -1), (5, 0), stroke: red)
-//   })
+#remark[
+  Gradient descent has linear convergence, while Newton's method has quadratic convergence
+  near the optimum, at the cost of computing and inverting the Hessian at each step.
+]
 
-//   Wavelength $lambda = 2 pi / k$, visible light: #qtyrange("380", "750", "nm"). #footnote[$c approx$ #qty("2.998e8", "m/s").]
-// ]
+= Vector Graphics
 
-// #problem[
-//   Show $vb(B)(z, t) = (E_0/c) cos(k z - omega t) vu(y)$ satisfies Faraday's law.
-// ]
+== Coordinate System
 
-// #solution[
-//   $curl vb(E) = pdv(E_x, z) vu(y) = -k E_0 sin(k z - omega t) vu(y) = -pdv(vb(B), t)$. $qed$
-// ]
+#cetz.canvas(length: 1cm, {
+  import cetz.draw: *
+  set-style(axes: (tick-length: 0.05))
+  line((-4, 0), (4, 0), mark: (end: ">"))
+  line((0, -3), (0, 3), mark: (end: ">"))
+  content((4.3, 0), [$x$])
+  content((0.1, 3.3), [$y$])
+  content((1, -0.5), [$1$])
+  content((-0.5, 1), [$1$])
+  line((-0.2, 1), (0, 1))
+  line((1, -0.2), (1, 0))
+})
 
-// = Chemistry
+== Neural Network Sketch
 
-// == Chemical Structures
+#cetz.canvas(length: 0.9cm, {
+  import cetz.draw: *
+  let inputs = ((0, 3), (0, 1.5), (0, 0))
+  let hidden = ((2.5, 3.5), (2.5, 2), (2.5, 0.5), (2.5, -1))
+  let output = ((5, 1.5),)
 
-// #skeletize({
-//   fragment(name: "A", "R")
-//   single()
-//   fragment("B")
-//   branch({
-//     single(angle: 1)
-//     fragment(name: "X", "OH")
-//     single()
-//     fragment(name: "Y", $"NH"_2$)
-//   })
-//   single()
-//   fragment(name: "C", "COOH")
-// })
+  // Draw connections
+  for i in inputs {
+    for h in hidden {
+      line(i, h, stroke: gray.lighten(50%))
+    }
+  }
+  for h in hidden {
+    for o in output {
+      line(h, o, stroke: gray.lighten(50%))
+    }
+  }
 
-// == Key Reactions
+  // Draw nodes
+  for i in inputs { circle(i, radius: 0.25, fill: blue.lighten(60%)) }
+  for h in hidden { circle(h, radius: 0.25, fill: green.lighten(60%)) }
+  for o in output { circle(o, radius: 0.25, fill: red.lighten(60%)) }
 
-// #table(
-//   columns: 3,
-//   table.header([Reaction], [Type], [$Delta H$]),
-//   [$"N"_2 + 3"H"_2 -> 2"NH"_3$], [Haber], [#qty("-92.4", "kJ/mol")],
-//   [$"C" + "O"_2 -> "CO"_2$], [Combustion], [#qty("-393.5", "kJ/mol")],
-//   [$"H"_2"O" -> "H"^+ + "OH"^-$], [Dissociation], [#qty("55.8", "kJ/mol")],
-// )
+  content((-1, 1.5), [Inputs])
+  content((6.2, 1.5), [Output])
+})
 
-// #remark[
-//   Reaction rates follow Arrhenius: $k = A e^(-E_a / (R T))$, where $E_a$ is activation energy (typically #qtyrange("40", "200", "kJ/mol")).
-// ]
+= Chemistry & Physics
 
-// = Computer Science
+== Chemical Structure
 
-// == Gradient Descent
+#skeletize({
+  fragment(name: "A", "COOH")
+  single()
+  fragment(name: "B", "CH")
+  branch({
+    single(angle: 1)
+    fragment(name: "X", "OH")
+    single()
+    fragment(name: "Y", $"NH"_2$)
+  })
+  single()
+  fragment(name: "C", "CH")
+  branch({
+    single(angle: -1)
+    fragment(name: "Z", $"CH"_3$)
+  })
+  single()
+  fragment(name: "R2", "H")
+})
 
-// #let gd-body = {
-//   [Input: $f: bb(R)^n -> bb(R)$, $x_0$, step $alpha > 0$, tolerance $epsilon$]
-//   linebreak()
-//   [$k := 0$]
-//   linebreak()
-//   [while $|grad f(x_k)| > epsilon$ do]
-//   linebreak()
-//   algo.i
-//   [#algo.comment[Descent direction]]
-//   linebreak()
-//   [#algo.i $d_k := -grad f(x_k)$ #algo.d]
-//   linebreak()
-//   [#algo.comment[Line search]]
-//   linebreak()
-//   [#algo.i $x_(k+1) := x_k + alpha d_k$ #algo.d]
-//   linebreak()
-//   [#algo.i $k := k + 1$ #algo.d]
-//   linebreak()
-//   algo.d
-//   [return $x_k$]
-// }
+A generic amino acid backbone with side chains.
 
-// #algo.algo(
-//   line-numbers: true,
-//   indent-size: 1.5em,
-//   title: "Gradient Descent",
-//   gd-body,
-// )
+== Reaction Thermodynamics
 
-// #theorem(title: "Convergence")[
-//   For $L$-smooth, $mu$-strongly convex $f$ with $alpha = 2/(L+mu)$:
-//   $ |x_k - x^*| <= ((kappa - 1)/(kappa + 1))^k |x_0 - x^*|, $ where $kappa = L/mu$.
-// ]
+#table(
+  columns: 4,
+  table.header([Reaction], [Type], [$Delta H$], [$Delta S$]),
+  [$"N"_2 + 3"H"_2 -> 2"NH"_3$], [Haber], [#qty("-92.4", "kJ/mol")], [#qty("-198.8", "J/(mol K)")],
+  [$"C" + "O"_2 -> "CO"_2$], [Combustion], [#qty("-393.5", "kJ/mol")], [#qty("2.9", "J/(mol K)")],
+  [$"CaCO"_3 -> "CaO" + "CO"_2$], [Decomposition], [#qty("178.3", "kJ/mol")], [#qty("160.4", "J/(mol K)")],
+)
 
-// #problem[
-//   Implement GD for $f(x) = (x-3)^2$ with $x_0 = 0$, $alpha = 0.1$. How many iterations to reach $|f'(x)| < 10^(-3)$?
-// ]
+== Physics Notation
 
-// #solution[
-//   $f'(x) = 2(x-3)$, $x_(k+1) = x_k - 0.2(x_k - 3) = 0.8 x_k + 0.6$. Starting from 0: $x_1 = 0.6$, $x_2 = 1.08$, ... converges to 3. Error halves roughly every 3 iterations. $qed$
-// ]
+#property(title: "Maxwell's Equations in Vacuum")[
+  $ div vb(E) = 0, quad div vb(B) = 0, $
+  $ curl vb(E) = -pdv(vb(B), t), quad curl vb(B) = mu_0 epsilon_0 pdv(vb(E), t). $
+]
 
-// = Earth Science
+#theorem(title: "Electromagnetic Wave Equation")[
+  Taking the curl of Faraday's law and substituting Ampère's law yields the wave equation:
+  $ laplacian vb(E) = mu_0 epsilon_0 pdv(vb(E), t, 2), $
+  describing waves propagating at $c = 1 / sqrt(mu_0 epsilon_0) approx$ #qty("2.998e8", "m/s").
+]
 
-// == Earth's Structure
+#example(title: "Visible Light")[
+  Visible wavelengths range from #qtyrange("380", "750", "nm"), corresponding to frequencies
+  of #qtyrange("400", "790", "THz"). The energy per photon is
+  $E = h nu approx$ #qtyrange("1.65", "3.27", "eV").
+]
 
-// #canvas(length: 1cm, {
-//   import draw: *
-//   circle((0, 0), radius: 3, fill: yellow.lighten(80%), stroke: black)
-//   circle((0, 0), radius: 2.2, fill: orange.lighten(60%), stroke: black)
-//   circle((0, 0), radius: 1.1, fill: red.lighten(40%), stroke: black)
-//   circle((0, 0), radius: 0.3, fill: red, stroke: black)
-//   content((0, 2.5), [Crust])
-//   content((0, 1.5), [Mantle])
-//   content((0, 0.6), [Core])
-// })
+#remark(title: "Unit Formatting")[
+  All physical quantities above use the `unify` package: `qty` for values with units and
+  `qtyrange` for ranges. Unit formatting is automatic and follows SI conventions.
+]
 
-// == Key Properties
+= 中文示例
 
-// #table(
-//   columns: 4,
-//   table.header([Layer], [Depth], [Temp], [State]),
-//   [Crust],    [#qtyrange("0", "35", "km")],  [#qtyrange("0", "400", "degC")],  [Solid],
-//   [Mantle],   [#qtyrange("35", "2890", "km")], [#qtyrange("1000", "3700", "degC")], [Solid],
-//   [Outer Core], [#qtyrange("2890", "5150", "km")], [#qtyrange("3700", "4300", "degC")], [Liquid],
-//   [Inner Core], [#qtyrange("5150", "6371", "km")], [#qtyrange("4300", "5500", "degC")], [Solid],
-// )
+#set text(lang: "zh")
 
-// #property(title: "Seismic Waves")[
-//   P-waves travel through solids and liquids at $v_P = sqrt((K + 4/3 G) / rho)$, while S-waves only through solids at $v_S = sqrt(G / rho)$.
-// ]
+== 定积分与极限
 
-// #remark[
-//   The Earth's magnetic field ($approx$ #qty("50", "uT") at the surface) is generated by convection in the liquid outer core (geodynamo). #footnote[Earth's mass: #qty("5.97e24", "kg"), radius: #qty("6371", "km").]
-// ]
+#theorem(title: "牛顿-莱布尼茨公式")[
+  若 $F$ 是 $f$ 在 $[a, b]$ 上的一个原函数，则
+  $ integral_a^b f(x) dif x = F(b) - F(a). $
+]
+
+#proof[
+  将 $[a, b]$ 分成 $n$ 等份，利用拉格朗日中值定理。
+]
+
+#definition(title: "一致连续")[
+  设 $f: I -> bb(R)$。若对任意 $epsilon > 0$，存在 $delta > 0$，使得对任意 $x, y in I$，当 $|x - y| < delta$ 时恒有
+  $ |f(x) - f(y)| < epsilon, $
+  则称 $f$ 在 $I$ 上一致连续。
+]
+
+#problem[
+  证明 $f(x) = sqrt(x)$ 在 $[0, oo)$ 上不一致连续，但在 $[1, oo)$ 上一致连续。
+]
+
+#solution[
+  取 $x_n = 1/n^2$，$y_n = 1/(4n^2)$，则 $|x_n - y_n| -> 0$ 但 $|f(x_n) - f(y_n)| = 1/(2n) not-> 0$，
+  故不一致连续。在 $[1, oo)$ 上，$|f(x) - f(y)| = |x-y|/(sqrt(x) + sqrt(y)) <= |x-y|/2$，满足 Lipschitz 条件。
+]
+
+== 物理常数
+
+#table(
+  columns: 3,
+  table.header([常数], [符号], [数值]),
+  [真空光速], [$c$], [#qty("2.998e8", "m/s")],
+  [普朗克常数], [$h$], [#qty("6.626e-34", "J s")],
+  [万有引力常数], [$G$], [#qty("6.674e-11", "m^3 kg^-1 s^-2")],
+  [阿伏伽德罗常数], [$N_A$], [#qty("6.022e23", "mol^-1")],
+)
+
+#remark[
+  @thm:mvt 可推广至多维：若 $f: bb(R)^n -> bb(R)$ 可微，则存在 $xi$ 使得
+  $ f(bold(y)) - f(bold(x)) = grad f(xi) dot (bold(y) - bold(x)) $。
+  参考式 @eq:grad 和 @eq:hess。
+]

@@ -70,7 +70,6 @@
 
   show heading.where(level: 1): t => context {
     if t.body in ([Contents], [目录]) { return t }
-
     let chp = counter(heading).get().at(0)
 
     set text(size: 30pt, font: (en-font-serif, cn-font-serif))

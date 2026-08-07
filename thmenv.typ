@@ -154,14 +154,6 @@
   render: rect-box-style.with(fill: colors.at("theorem")),
 )
 
-#let (proposition-counter, proposition-box, proposition, show-proposition) = make-frame(
-  "proposition",
-  theorion-i18n-map.at("proposition"),
-  inherited-levels: 2,
-  inherited-from: heading,
-  render: rect-box-style.with(fill: colors.at("theorem")),
-)
-
 #let (problem-counter, problem-box, problem, show-problem) = make-frame(
   "problem",
   theorion-i18n-map.at("problem"),
@@ -175,7 +167,6 @@
   show: show-theorem
   show: show-lemma
   show: show-definition
-  show: show-proposition
   show: show-property
   show: show-remark
   show: show-example

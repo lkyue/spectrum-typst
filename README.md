@@ -5,7 +5,7 @@ Adapted from [@syqwq's notes-template](https://github.com/syqwq-OMG/notes-templa
 
 ## Features
 
-- **Theorem environments** — theorem, lemma, definition, example, remark, property, proposition, problem, proof, solution
+- **Theorem environments** — theorem, lemma, definition, example, remark, property, problem, proof, solution
 - **Auto QED placement** on proofs (via theorion)
 - **CJK punctuation normalization** for mixed Chinese-English writing
 - **i18n cover subtitle** — English and Chinese support
